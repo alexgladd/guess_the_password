@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const startGame = () => {
     // get random words and append them to the DOM
     const wordList = document.getElementById("word-list");
-    const randomWords = getRandomValues(words, wordCount);
+    const randomWords = getRandomValues(words);
     for (let word of randomWords) {
       const li = document.createElement("li");
       li.innerText = word;
@@ -34,9 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
     wordList.addEventListener('click', updateGame);
   }
 
-  const getRandomValues = (array, numberOfVals) => {
-    return shuffle(array).slice(0, numberOfVals);
-  }
+  const getRandomValues = (array, numberOfVals=wordCount) => shuffle(array).slice(0, numberOfVals);
 
   const shuffle = (array) => {
     let arrayCopy = array.slice();
@@ -55,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("guesses-remaining").innerText = `Guesses remaining: ${guessCount}.`;
   }
 
-  const updateGame = (e) => {
+  function updateGame(e) {
     if (e.target.tagName === "LI" && !e.target.classList.contains("disabled")) {
       // grab guessed word, check it against password, update view
       const guess = e.target.innerText;
