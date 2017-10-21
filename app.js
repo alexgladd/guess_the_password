@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const setGuessCount = (newCount) => {
     guessCount = newCount;
-    document.getElementById("guesses-remaining").innerText = "Guesses remaining: " + guessCount + ".";
+    document.getElementById("guesses-remaining").innerText = `Guesses remaining: ${guessCount}.`;
   }
 
   const updateGame = (e) => {
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const guess = e.target.innerText;
       const similarityScore = compareWords(guess, password);
       e.target.classList.add("disabled");
-      e.target.innerText = e.target.innerText + " --> Matching Letters: " + similarityScore;
+      e.target.innerText = `${e.target.innerText} --> Matching Letters: ${similarityScore}`;
       setGuessCount(guessCount - 1);
 
       // check whether the game is over
