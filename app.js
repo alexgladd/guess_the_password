@@ -10,21 +10,21 @@ document.addEventListener('DOMContentLoaded', function() {
     startGame();
   });
 
-  function toggleClasses(element) {
-    for (let i = 1; i < arguments.length; i++) {
-      element.classList.toggle(arguments[i]);
+  const toggleClasses = (element, ...classes) => {
+    for (let clazz of classes) {
+      element.classList.toggle(clazz);
     }
   }
 
-  function startGame() {
+  const startGame = () => {
     // get random words and append them to the DOM
     const wordList = document.getElementById("word-list");
     const randomWords = getRandomValues(words, wordCount);
-    randomWords.forEach(function(word) {
+    for (let word of randomWords) {
       const li = document.createElement("li");
       li.innerText = word;
       wordList.appendChild(li);
-    });
+    }
 
     // set a secret password and the guess count display
     password = getRandomValues(randomWords, 1)[0];
@@ -34,11 +34,11 @@ document.addEventListener('DOMContentLoaded', function() {
     wordList.addEventListener('click', updateGame);
   }
 
-  function getRandomValues(array, numberOfVals) {
+  const getRandomValues = (array, numberOfVals) => {
     return shuffle(array).slice(0, numberOfVals);
   }
 
-  function shuffle(array) {
+  const shuffle = (array) => {
     let arrayCopy = array.slice();
     for (let idx1 = arrayCopy.length - 1; idx1 > 0; idx1--) {
       // generate a random index between 0 and idx1 (inclusive)
@@ -52,12 +52,12 @@ document.addEventListener('DOMContentLoaded', function() {
     return arrayCopy;
   }
 
-  function setGuessCount(newCount) {
+  const setGuessCount = (newCount) => {
     guessCount = newCount;
     document.getElementById("guesses-remaining").innerText = "Guesses remaining: " + guessCount + ".";
   }
 
-  function updateGame(e) {
+  const updateGame = (e) => {
     if (e.target.tagName === "LI" && !e.target.classList.contains("disabled")) {
       // grab guessed word, check it against password, update view
       const guess = e.target.innerText;
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  function compareWords(word1, word2) {
+  const compareWords = (word1, word2) => {
     if (word1.length !== word2.length) throw "Words must have the same length";
     let count = 0;
     for (let i = 0; i < word1.length; i++) {
