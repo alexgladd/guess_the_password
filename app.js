@@ -45,9 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const idx2 = Math.floor(Math.random() * (idx1 + 1));
 
       // swap elements at idx1 and idx2
-      const temp = arrayCopy[idx1];
-      arrayCopy[idx1] = arrayCopy[idx2];
-      arrayCopy[idx2] = temp;
+      [ arrayCopy[idx2], arrayCopy[idx1] ] = [ arrayCopy[idx1], arrayCopy[idx2] ];
     }
     return arrayCopy;
   }
@@ -79,10 +77,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const compareWords = (word1, word2) => {
     if (word1.length !== word2.length) throw "Words must have the same length";
-    let count = 0;
-    for (let i = 0; i < word1.length; i++) {
-      if (word1[i] === word2[i]) count++;
-    }
-    return count;
+
+    return [].reduce.call(word1, (acc, letter, idx) => {
+      if (letter === word2[idx]) return acc + 1;
+      else return acc;
+    }, 0);
   }
 });
